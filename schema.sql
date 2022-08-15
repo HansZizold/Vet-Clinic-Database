@@ -7,3 +7,6 @@ CREATE TABLE animals (
   weigth_kg decimal,
   PRIMARY KEY(id)
 );
+
+ALTER TABLE animals
+ALTER COLUMN name TYPE varchar;
