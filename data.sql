@@ -10,6 +10,10 @@ values ('Pikachu', '2021-01-07', 1, false, 15.04);
 insert into animals (name, date_of_birth, escape_attempts, neutered, weigth_kg)
 values ('Devimon', '2017-05-12', 5, true, 11);
 
+-- QUERY AND UPDATE
+
+-- Addition of seven new registers
+
 -- His name is Charmander. He was born on Feb 8th, 2020, and currently weighs -11kg. He is not neutered and he has never tried to escape.
 insert into animals (name, date_of_birth, escape_attempts, neutered, weigth_kg)
 values ('Charmander', '2020-02-08', 0, false, 11);
@@ -37,6 +41,8 @@ values ('Blossom', '1998-10-13', 3, true, 17);
 -- Animal: His name is Ditto. He was born on May 14th, 2022, and currently weighs 22kg. He is neutered and he has tried to escape 4 times.
 insert into animals (name, date_of_birth, escape_attempts, neutered, weigth_kg)
 values ('Ditto', '2022-05-14', 4, true, 22);
+
+-- Transaction Exercises
 
 -- Inside a transaction update the animals table by setting the species column to unspecified. Verify that change was made. Then roll back the change and verify that the species columns went back to the state before the transaction.
 begin;
