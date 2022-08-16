@@ -23,6 +23,60 @@ select * from animals where name != 'Gabumon';
 select * from animals where weigth_kg between 10.3 and 17.4;
 
 
+-- TRANSACTION EXERCISES
+
+-- Inside a transaction update the animals table by setting the species column to unspecified. Verify that change was made. Then roll back the change and verify that the species columns went back to the state before the transaction.
+begin;
+update animals
+set species = 'unspecified';
+select * from animals;
+rollback;
+select * from animals;
+
+-- Inside a transaction:
+-- Update the animals table by setting the species column to digimon for all animals that have a name ending in mon.
+-- Update the animals table by setting the species column to pokemon for all animals that don't have species already set.
+-- Commit the transaction.
+-- Verify that change was made and persists after commit.
+begin;
+update animals
+set species = 'digimon'
+where name LIKE '%mon';
+update animals
+set species = 'pokemon'
+where species is null;
+commit;
+select * from animals;
+
+-- Inside a transaction delete all records in the animals table, then roll back the transaction.
+-- After the rollback verify if all records in the animals table still exists. After that, you can start breathing as usual ;)
+begin;
+delete from animals;
+select * from animals;
+rollback;
+select * from animals;
+
+-- Inside a transaction: delete all animals born after Jan 1st, 2022.
+-- Create a savepoint for the transaction.
+-- Update all animals' weight to be their weight multiplied by -1.
+-- Rollback to the savepoint
+-- Update all animals' weights that are negative to be their weight multiplied by -1.
+-- Commit transaction
+begin;
+delete from animals where date_of_birth > '2022-01-01';
+SAVEPOINT birth;
+update animals
+set weigth_kg = weigth_kg*(-1);
+rollback to birth;
+update animals 
+set weigth_kg = weigth_kg*(-1) 
+where weigth_kg < 0; 
+select * from animals;
+commit;
+
+
+-- QUERY EXERCISES
+
 -- How many animals are there?
 select count(*) from animals; 
 
