@@ -10,3 +10,6 @@ CREATE TABLE animals (
 
 ALTER TABLE animals
 ALTER COLUMN name TYPE varchar;
+
+ALTER TABLE animals
+ADD COLUMN species VARCHAR;
