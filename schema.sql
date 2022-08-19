@@ -58,3 +58,50 @@ ALTER TABLE animals
 ADD CONSTRAINT FK_owner
 FOREIGN KEY (owner_id)
 REFERENCES owners(id);
+
+-- DAY 4
+-- ADD JOIN TABLE FOR VISITS
+
+-- Create a table named vets with the following columns:
+-- id: integer (set it as autoincremented PRIMARY KEY)
+-- name: string
+-- age: integer
+-- date_of_graduation: date
+CREATE TABLE vets (
+  id integer GENERATED ALWAYS AS IDENTITY,
+  name varchar,
+  age integer,
+  date_of_graduation date,
+  PRIMARY KEY(id)
+);
+
+-- There is a many-to-many relationship between the tables species and vets: a vet can specialize in multiple species, and a species can have multiple vets specialized in it. Create a "join table" called specializations to handle this relationship.
+CREATE TABLE specializations (
+  species_id integer,
+  vets_id integer,
+  PRIMARY KEY(species_id, vets_id)
+);
+ALTER TABLE specializations
+ADD CONSTRAINT FK_species
+FOREIGN KEY (species_id)
+REFERENCES species(id);
+ALTER TABLE specializations
+ADD CONSTRAINT FK_vets
+FOREIGN KEY (vets_id)
+REFERENCES vets(id);
+
+-- There is a many-to-many relationship between the tables animals and vets: an animal can visit multiple vets and one vet can be visited by multiple animals. Create a "join table" called visits to handle this relationship, it should also keep track of the date of the visit.
+CREATE TABLE visits (
+  animals_id integer,
+  vets_id integer,
+  visit_date date,
+  PRIMARY KEY(animals_id, vets_id, visit_date)
+);
+ALTER TABLE visits
+ADD CONSTRAINT FK_animals
+FOREIGN KEY (animals_id)
+REFERENCES animals(id);
+ALTER TABLE visits
+ADD CONSTRAINT FK_vets
+FOREIGN KEY (vets_id)
+REFERENCES vets(id);
